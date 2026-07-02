@@ -73,4 +73,4 @@ puffer train my_env
 puffer eval my_env --load-model-path latest
 ```
 
-> The extension **Task Buttons** by *spencerwmiles* automatically adds custom ***Build***, ***Train*** and ***Run*** buttons to VS Code statusbar :)
+> The extension **Task Buttons** by *spencerwmiles* allows us to add custom ***Build***, ***Train*** and ***Run*** buttons to VS Code statusbar :)
