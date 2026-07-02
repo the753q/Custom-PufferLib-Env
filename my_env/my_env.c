@@ -1,64 +1,54 @@
-#include <time.h>
+/* Pure C demo file for Squared. Build it with:
+ * bash scripts/build_ocean.sh target local (debug)
+ * bash scripts/build_ocean.sh target fast
+ * We suggest building and debugging your env in pure C first. You
+ * get faster builds and better error messages. To keep this example
+ * simple, it does not include C neural nets. See Target for that.
+ */
+
 #include "my_env.h"
 #include "puffernet.h"
 
 void demo() {
-    Weights* weights = load_weights("resources/breakout/breakout_weights.bin");
-    int logit_sizes[1] = {3};
-    PufferNet* net = make_puffernet(weights, 1, 118, 64, 2, logit_sizes, 1);
+    Squared env = {.size = 11};
+    env.observations = (unsigned char*)calloc(env.size*env.size, sizeof(unsigned char));
+    env.actions = (float*)calloc(1, sizeof(float));
+    env.rewards = (float*)calloc(1, sizeof(float));
+    env.terminals = (float*)calloc(1, sizeof(float));
 
-    MyEnv env = {
-        .frameskip = 1,
-        .width = 576,
-        .height = 330,
-        .initial_paddle_width = 62,
-        .paddle_width = 62,
-        .paddle_height = 8,
-        .ball_width = 32,
-        .ball_height = 32,
-        .brick_width = 32,
-        .brick_height = 12,
-        .brick_rows = 6,
-        .brick_cols = 18,
-        .initial_ball_speed = 256,
-        .max_ball_speed = 448,
-        .paddle_speed = 620,
-        .continuous = 0,
-    };
-    allocate(&env);
-
-    env.client = make_client(&env);
+    Weights* weights = load_weights("resources/squared/squared_weights.bin");
+    int logit_sizes[1] = {5};
+    PufferNet* net = make_puffernet(weights, 1, 121, 128, 1, logit_sizes, 1);
 
     c_reset(&env);
-    int frame = 0;
-    SetTargetFPS(60);
+    c_render(&env);
     while (!WindowShouldClose()) {
-        // User can take control of the paddle
         if (IsKeyDown(KEY_LEFT_SHIFT)) {
-            if(env.continuous) {
-                float move = GetMouseWheelMove();
-                float clamped_wheel = fmaxf(-1.0f, fminf(1.0f, move));
-                env.actions[0] = clamped_wheel;
-            } else {
-                env.actions[0] = 0.0;
-                if (IsKeyDown(KEY_LEFT)  || IsKeyDown(KEY_A)) env.actions[0] = 1;
-                if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) env.actions[0] = 2;
-            }
-        } else if (frame % 4 == 0) {
-            // Apply frameskip outside the env for smoother rendering
-            forward_puffernet(net, env.observations, env.actions);
+            env.actions[0] = 0.0f;
+            if (IsKeyDown(KEY_UP)    || IsKeyDown(KEY_W)) env.actions[0] = UP;
+            if (IsKeyDown(KEY_DOWN)  || IsKeyDown(KEY_S)) env.actions[0] = DOWN;
+            if (IsKeyDown(KEY_LEFT)  || IsKeyDown(KEY_A)) env.actions[0] = LEFT;
+            if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) env.actions[0] = RIGHT;
+        } else {
+            float obs_f[121];
+            for(int i=0; i<121; i++) obs_f[i] = (float)env.observations[i];
+            forward_puffernet(net, obs_f, env.actions);
         }
-
-        frame = (frame + 1) % 4;
         c_step(&env);
         c_render(&env);
     }
+    
     free_puffernet(net);
     free(weights);
-    free_allocated(&env);
-    close_client(env.client);
+
+    free(env.observations);
+    free(env.actions);
+    free(env.rewards);
+    free(env.terminals);
+    c_close(&env);
 }
 
 int main() {
     demo();
+    return 0;
 }
