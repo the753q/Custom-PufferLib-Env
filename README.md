@@ -6,9 +6,9 @@ Blueprint for a stable **PufferLib** setup. The default breakout environment is 
 
 ## Getting Started
 
-We use the **PufferTank** docker image as the backbone. Local **PufferLib** copy is mounted onto it, allowing us to modify it when needed.
+We use the **PufferTank** docker image as the backbone.
 
-At last, the custom environment is opened in the **PufferTank** container, run by the modified **PufferLib** copy.
+Then, the custom environment is opened in the **PufferTank** container, run by a modified **PufferLib** copy.
 
 ### Prerequisites
 
@@ -41,21 +41,15 @@ Before cloning this repository, follow these instructions:
     git clone https://github.com/PufferAI/PufferTank.git
     ```
 
-1. Clone the **PufferLib** library:
-
-    ```bash
-    git clone https://github.com/PufferAI/PufferLib.git
-    ```
-
 1. Clone this repository:
 
     ```bash
-    git clone 
+    git clone https://github.com/the753q/CustomPufferLibEnv.git
     ```
 
 ### Run
 
-Perform the following to open the **PufferLib** library in VS Code:
+Perform the following to open the custom environment in VS Code:
 
 1. Open this repository folder in VS Code
 1. Press 'Reopen in Container'
@@ -65,7 +59,7 @@ You should now be seeing `(🐡)` in the terminal, as well as the repository fil
 
 > ***Note: the following is done automatically at Reopen in Container:***
 >
-> In order to let our **PufferLib** copy know about our environment, we link the environment's code to it:
+> In order to let the **PufferLib** install in the **PufferTank** know about our environment, we link the custom environment's code to it:
 >
 >```bash
 >bash ./setup.sh

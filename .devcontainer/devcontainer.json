@@ -11,9 +11,8 @@
         "--network=host"
     ],
 
-    // Mount PufferLib, X11 sockets, and XDG runtime directory (for Wayland and Mutter/Xwayland auth)
+    // Mount X11 sockets, and XDG runtime directory (for Wayland and Mutter/Xwayland auth)
     "mounts": [
-        "source=${localWorkspaceFolder}/../PufferLib,target=/puffertank/pufferlib,type=bind",
         "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind",
         "source=${localEnv:XDG_RUNTIME_DIR},target=/run/user/1000,type=bind"
     ],
