@@ -1,0 +1,30 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Env",
+      "type": "shell",
+      "command": "bash build.sh my_env",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "shared" }
+    },
+    {
+      "label": "Train Env",
+      "type": "shell",
+      "command": "puffer train my_env",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "shared" }
+    },
+    {
+      "label": "Run Env",
+      "type": "shell",
+      "command": "puffer eval my_env --load-model-path latest",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "shared" }
+    }
+  ],
+  "options": {
+    "cwd": "/puffertank/pufferlib",
+    "shell": { "executable": "/bin/bash", "args": ["-ic"] }
+  }
+}
