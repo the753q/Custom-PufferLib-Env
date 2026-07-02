@@ -1,6 +1,6 @@
 # Easy Custom PufferLib Environment Setup
 
-Blueprint for a stable **PufferLib** setup. The default breakout environment is used for demonstration.
+Blueprint for a stable **PufferLib** setup. The default Squared environment is used for demonstration.
 
 **Used PufferLib version: `[4.0]`**
 
