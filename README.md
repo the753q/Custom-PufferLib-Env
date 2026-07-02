@@ -12,7 +12,7 @@ Then, the custom environment is opened in the **PufferTank** container, run by a
 
 ### Prerequisites
 
-Running on Ubuntu 26.04, with an NVIDIA GPU (pre-installed NVIDIA GPU drivers):
+Linux distro with an NVIDIA GPU and installed drivers:
 
 1. Install **Docker Engine**
 1. Install **NVIDIA Container Toolkit**
