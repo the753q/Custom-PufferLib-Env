@@ -2,6 +2,8 @@
 
 Blueprint for a stable **PufferLib** setup. The default Squared environment is used for demonstration.
 
+***Doesn't support debugging of environments via VS Code.***
+
 **Used PufferLib version: `[4.0]`**
 
 ## Getting Started
