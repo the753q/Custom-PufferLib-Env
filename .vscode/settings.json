@@ -1,11 +1,4 @@
 {
-    "chat.tools.terminal.autoApprove": {
-        "/^cd /puffertank/pufferlib && bash build\\.sh my_env$/": {
-            "approve": true,
-            "matchCommandLine": true
-        }
-    },
-    
     "VsCodeTaskButtons.tasks": [
         { "label": "🔨 Build Env", "task": "Build Env", "useVsCodeApi": true },
         { "label": "🧠 Train Env", "task": "Train Env", "useVsCodeApi": true },
